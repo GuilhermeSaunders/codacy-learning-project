@@ -13,22 +13,22 @@ module.exports = (plop) => {
       {
         type: 'add',
         path: '../src/controllers/{{pascalCase name}}Controller.ts',
-        templateFile: 'templates/regularController.ts.hbs',
+        templateFile: 'templates/singleId/regularController.ts.hbs',
       },
       {
         type: 'add',
         path: '../src/repositories/{{pascalCase name}}Repository.ts',
-        templateFile: 'templates/regularRepository.ts.hbs',
+        templateFile: 'templates/singleId/regularRepository.ts.hbs',
       },
       {
         type: 'add',
         path: '../src/routes/{{pascalCase name}}Routes.ts',
-        templateFile: 'templates/regularRoutes.ts.hbs',
+        templateFile: 'templates/singleId/regularRoutes.ts.hbs',
       },
       {
         type: 'add',
         path: '../src/DTOs/{{pascalCase name}}.ts',
-        templateFile: 'templates/regularDTO.ts.hbs',
+        templateFile: 'templates/singleId/regularDTO.ts.hbs',
       },
       {
         type: 'modify',
