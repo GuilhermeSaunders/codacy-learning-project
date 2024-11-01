@@ -1,12 +1,15 @@
 import { Router } from 'express';
-import { {{pascalCase name}}Controller } from '@controllers';
+import {{pascalCase model}}Controller from '../controllers/{{pascalCase model}}Controller';
 
-const {{pascalCase name}}Router = Router();
+const {{camelCase model}}Router = Router();
 
-{{pascalCase name}}Router.route('/').post({{pascalCase name}}Controller.create);
-{{pascalCase name}}Router.route('/').get({{pascalCase name}}Controller.readAll);
-{{pascalCase name}}Router.route('/:{{camelCase name}}Id').get({{pascalCase name}}Controller.read);
-{{pascalCase name}}Router.route('/:{{camelCase name}}Id').patch({{pascalCase name}}Controller.update);
-{{pascalCase name}}Router.route('/:{{camelCase name}}Id').delete({{pascalCase name}}Controller.delete);
+{{camelCase model}}Router.route('/').post({{pascalCase model}}Controller.create);
+{{camelCase model}}Router.route('/:{{camelCase model1}}Id/:{{camelCase model2}}Id').get({{pascalCase model}}Controller.read);
+// Rota para ler todos os {{pascalCase model}} associados a um {{camelCase model1}}Id
+{{camelCase model}}Router.route('/{{camelCase model1}}/:{{camelCase model1}}Id').get({{pascalCase model}}Controller.findBy{{pascalCase model1}}Id);
+// Rota para ler todos os {{pascalCase model}} associados a um {{camelCase model2}}Id
+{{camelCase model}}Router.route('/{{camelCase model2}}/:{{camelCase model2}}Id').get({{pascalCase model}}Controller.findBy{{pascalCase model2}}Id);
+{{camelCase model}}Router.route('/:{{camelCase model1}}Id/:{{camelCase model2}}Id').patch({{pascalCase model}}Controller.update);
+{{camelCase model}}Router.route('/:{{camelCase model1}}Id/:{{camelCase model2}}Id').delete({{pascalCase model}}Controller.delete);
 
-export default {{pascalCase name}}Router;
+export default {{camelCase model}}Router;
