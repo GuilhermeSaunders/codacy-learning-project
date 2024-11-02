@@ -1,4 +1,4 @@
-export const singleIdActions = [
+module.exports = () => [
   {
     type: 'add',
     path: '../src/controllers/{{pascalCase name}}Controller.ts',
