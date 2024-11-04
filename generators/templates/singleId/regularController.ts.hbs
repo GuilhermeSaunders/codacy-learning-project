@@ -1,18 +1,18 @@
 import { Request, Response, NextFunction } from 'express';
-import { {{pascalCase name}}Repository } from '../repositories';
-import { {{pascalCase name}}, Update{{pascalCase name}} } from '../DTOs';
+import { {{pascalCase model}}Repository } from '../repositories';
+import { {{pascalCase model}}, Update{{pascalCase model}} } from '../DTOs';
 
-class {{pascalCase name}}Controller {
+class {{pascalCase model}}Controller {
   async create(req: Request, res: Response, next: NextFunction) {
     try {
-      const {{camelCase name}}Data = {{pascalCase name}}.parse(req.body);
+      const {{camelCase model}}Data = {{pascalCase model}}.parse(req.body);
 
-      const {{camelCase name}} = await {{pascalCase name}}Repository.create({{camelCase name}}Data);
+      const {{camelCase model}} = await {{pascalCase model}}Repository.create({{camelCase model}}Data);
 
       res.locals = {
         status: 201,
-        message: '{{pascalCase name}} criado com sucesso!',
-        data: {{camelCase name}},
+        message: '{{pascalCase model}} criado com sucesso!',
+        data: {{camelCase model}},
       };
 
       return next();
@@ -23,20 +23,20 @@ class {{pascalCase name}}Controller {
 
   async read(req: Request, res: Response, next: NextFunction) {
     try {
-      const { {{camelCase name}}Id } = req.params;
+      const { {{camelCase model}}Id } = req.params;
 
-      const {{camelCase name}} = await {{pascalCase name}}Repository.findById({{camelCase name}}Id);
+      const {{camelCase model}} = await {{pascalCase model}}Repository.findById({{camelCase model}}Id);
 
-      if (!{{camelCase name}}) {
+      if (!{{camelCase model}}) {
         return next({
           status: 404,
-          message: '{{pascalCase name}} não encontrado',
+          message: '{{pascalCase model}} não encontrado',
         });
       }
 
       res.locals = {
         status: 200,
-        data: {{camelCase name}},
+        data: {{camelCase model}},
       };
 
       return next();
@@ -47,18 +47,18 @@ class {{pascalCase name}}Controller {
 
   async readAll(req: Request, res: Response, next: NextFunction) {
     try {
-      const {{camelCase name}} = await {{pascalCase name}}Repository.findAll();
+      const {{camelCase model}} = await {{pascalCase model}}Repository.findAll();
 
-      if (!{{camelCase name}}) {
+      if (!{{camelCase model}}) {
         return next({
           status: 404,
-          message: '{{pascalCase name}}s não encontrados',
+          message: '{{pascalCase model}}s não encontrados',
         });
       }
 
       res.locals = {
         status: 200,
-        data: {{camelCase name}},
+        data: {{camelCase model}},
       };
 
       return next();
@@ -69,24 +69,24 @@ class {{pascalCase name}}Controller {
 
   async update(req: Request, res: Response, next: NextFunction) {
     try {
-      const { {{camelCase name}}Id } = req.params;
-      const {{camelCase name}}Data = Update{{pascalCase name}}.parse(req.body);
+      const { {{camelCase model}}Id } = req.params;
+      const {{camelCase model}}Data = Update{{pascalCase model}}.parse(req.body);
 
-      const {{camelCase name}}exists = await {{pascalCase name}}Repository.findById({{camelCase name}}Id);
+      const {{camelCase model}}exists = await {{pascalCase model}}Repository.findById({{camelCase model}}Id);
 
-      if (!{{camelCase name}}exists) {
+      if (!{{camelCase model}}exists) {
         return next({
           status: 404,
-          message: '{{pascalCase name}} não encontrado',
+          message: '{{pascalCase model}} não encontrado',
         });
       }
 
-      const {{camelCase name}} = await {{pascalCase name}}Repository.update({{camelCase name}}Id, {{camelCase name}}Data);
+      const {{camelCase model}} = await {{pascalCase model}}Repository.update({{camelCase model}}Id, {{camelCase model}}Data);
 
       res.locals = {
         status: 200,
-        data: {{camelCase name}},
-        message: '{{pascalCase name}} atualizado!',
+        data: {{camelCase model}},
+        message: '{{pascalCase model}} atualizado!',
       };
 
       return next();
@@ -97,22 +97,22 @@ class {{pascalCase name}}Controller {
 
   async delete(req: Request, res: Response, next: NextFunction) {
     try {
-      const { {{camelCase name}}Id } = req.params;
+      const { {{camelCase model}}Id } = req.params;
 
-      const {{camelCase name}}exists = await {{pascalCase name}}Repository.findById({{camelCase name}}Id);
+      const {{camelCase model}}exists = await {{pascalCase model}}Repository.findById({{camelCase model}}Id);
 
-      if (!{{camelCase name}}exists) {
+      if (!{{camelCase model}}exists) {
         return next({
           status: 404,
-          message: '{{pascalCase name}} não encontrado',
+          message: '{{pascalCase model}} não encontrado',
         });
       }
 
-      await {{pascalCase name}}Repository.delete({{camelCase name}}Id);
+      await {{pascalCase model}}Repository.delete({{camelCase model}}Id);
 
       res.locals = {
         status: 200,
-        message: '{{pascalCase name}} deletado',
+        message: '{{pascalCase model}} deletado',
       };
 
       return next();
@@ -122,4 +122,4 @@ class {{pascalCase name}}Controller {
   }
 }
 
-export default new {{pascalCase name}}Controller();
+export default new {{pascalCase model}}Controller();

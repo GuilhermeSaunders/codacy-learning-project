@@ -1,31 +1,31 @@
-import { Prisma, {{ name }} } from '@prisma/client';
+import { Prisma, {{ model }} } from '@prisma/client';
 import prisma from '@database';
 
-class {{ properCase name }}Repository {
-  async create(data: Prisma.{{ properCase name }}CreateInput): Promise<{{ properCase name }}> {
-    const {{ camelCase name }} = await prisma.{{ camelCase name }}.create({ data });
-    return {{ camelCase name }};
+class {{ properCase model }}Repository {
+  async create(data: Prisma.{{ properCase model }}CreateInput): Promise<{{ properCase model }}> {
+    const {{ camelCase model }} = await prisma.{{ camelCase model }}.create({ data });
+    return {{ camelCase model }};
   }
 
-  async findById(id: string): Promise<{{ properCase name }} | null> {
-    const {{ camelCase name }} = await prisma.{{ camelCase name }}.findUnique({ where: { id } });
-    return {{ camelCase name }};
+  async findById(id: string): Promise<{{ properCase model }} | null> {
+    const {{ camelCase model }} = await prisma.{{ camelCase model }}.findUnique({ where: { id } });
+    return {{ camelCase model }};
   }
 
-  async findAll(): Promise<{{ properCase name }}[] | null> {
-    const {{ camelCase name }}s = await prisma.{{ camelCase name }}.findMany();
-    return {{ camelCase name }}s as {{ properCase name }}[];
+  async findAll(): Promise<{{ properCase model }}[] | null> {
+    const {{ camelCase model }}s = await prisma.{{ camelCase model }}.findMany();
+    return {{ camelCase model }}s as {{ properCase model }}[];
   }
 
-  async update(id: string, data: Prisma.{{ properCase name }}UpdateInput): Promise<{{ properCase name }}> {
-    const {{ camelCase name }} = await prisma.{{ camelCase name }}.update({ where: { id }, data });
-    return {{ camelCase name }};
+  async update(id: string, data: Prisma.{{ properCase model }}UpdateInput): Promise<{{ properCase model }}> {
+    const {{ camelCase model }} = await prisma.{{ camelCase model }}.update({ where: { id }, data });
+    return {{ camelCase model }};
   }
 
-  async delete(id: string): Promise<{{ properCase name }}> {
-    const {{ camelCase name }} = await prisma.{{ camelCase name }}.delete({ where: { id } });
-    return {{ camelCase name }};
+  async delete(id: string): Promise<{{ properCase model }}> {
+    const {{ camelCase model }} = await prisma.{{ camelCase model }}.delete({ where: { id } });
+    return {{ camelCase model }};
   }
 }
 
-export default new {{ properCase name }}Repository();
+export default new {{ properCase model }}Repository();
