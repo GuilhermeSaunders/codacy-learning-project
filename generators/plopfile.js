@@ -16,8 +16,14 @@ module.exports = (plop) => {
       },
       {
         type: 'input',
+        name: 'model1',
+        message: 'Digite o primeiro nome do identificador (ex. Product):',
+        when: (answers) => answers.identifierType === 'Duplo',
+      },
+      {
+        type: 'input',
         name: 'model2',
-        message: 'Digite o nome do segundo model (ex. Product):',
+        message: 'Digite o segundo nome do identificador (ex. Category):',
         when: (answers) => answers.identifierType === 'Duplo',
       },
     ],
@@ -35,22 +41,22 @@ module.exports = (plop) => {
         {
           type: 'add',
           path: `../src/controllers/{{pascalCase model}}Controller.ts`,
-          templateFile: `${templatePath}/regularController.ts.hbs`,
+          templateFile: `${templatePath}/Controller.ts.hbs`,
         },
         {
           type: 'add',
           path: `../src/repositories/{{pascalCase model}}Repository.ts`,
-          templateFile: `${templatePath}/regularRepository.ts.hbs`,
+          templateFile: `${templatePath}/Repository.ts.hbs`,
         },
         {
           type: 'add',
           path: `../src/routes/{{pascalCase model}}Routes.ts`,
-          templateFile: `${templatePath}/regularRoutes.ts.hbs`,
+          templateFile: `${templatePath}/Routes.ts.hbs`,
         },
         {
           type: 'add',
           path: `../src/DTOs/{{pascalCase model}}.ts`,
-          templateFile: `${templatePath}/regularDTO.ts.hbs`,
+          templateFile: `${templatePath}/DTO.ts.hbs`,
         },
         {
           type: 'modify',
@@ -113,64 +119,64 @@ module.exports = (plop) => {
         actions.push(
           {
             type: 'add',
-            path: `../src/controllers/{{pascalCase model}}-{{pascalCase model2}}Controller.ts`,
-            templateFile: `${templatePath}/doubleController.ts.hbs`,
+            path: `../src/controllers/{{pascalCase model1}}{{pascalCase model2}}Controller.ts`,
+            templateFile: `${templatePath}/Controller.ts.hbs`,
           },
           {
             type: 'add',
-            path: `../src/repositories/{{pascalCase model}}-{{pascalCase model2}}Repository.ts`,
-            templateFile: `${templatePath}/doubleRepository.ts.hbs`,
+            path: `../src/repositories/{{pascalCase model1}}{{pascalCase model2}}Repository.ts`,
+            templateFile: `${templatePath}/Repository.ts.hbs`,
           },
           {
             type: 'add',
-            path: `../src/routes/{{pascalCase model}}-{{pascalCase model2}}Routes.ts`,
-            templateFile: `${templatePath}/doubleRoutes.ts.hbs`,
+            path: `../src/routes/{{pascalCase model1}}{{pascalCase model2}}Routes.ts`,
+            templateFile: `${templatePath}/Routes.ts.hbs`,
           },
           {
             type: 'add',
-            path: `../src/DTOs/{{pascalCase model}}-{{pascalCase model2}}.ts`,
-            templateFile: `${templatePath}/doubleDTO.ts.hbs`,
+            path: `../src/DTOs/{{pascalCase model1}}{{pascalCase model2}}.ts`,
+            templateFile: `${templatePath}/DTO.ts.hbs`,
           },
           {
             type: 'modify',
             path: '../src/DTOs/index.ts',
             pattern: /^(import .*;\n)/,
             template:
-              "import { {{pascalCase model}}, {{pascalCase model2}}, Update{{pascalCase model}} } from './{{pascalCase model}}-{{pascalCase model2}}';\n$1",
+              "import { {{pascalCase model1}}, {{pascalCase model2}}, Update{{pascalCase model1}}{{pascalCase model2}} } from './{{pascalCase model1}}{{pascalCase model2}}';\n$1",
           },
           {
             type: 'modify',
             path: '../src/controllers/index.ts',
             pattern: /(export {)/,
             template:
-              "import {{pascalCase model}}-{{pascalCase model2}}Controller from './{{pascalCase model}}-{{pascalCase model2}}Controller';\n\n$1",
+              "import {{pascalCase model1}}{{pascalCase model2}}Controller from './{{pascalCase model1}}{{pascalCase model2}}Controller';\n\n$1",
           },
           {
             type: 'modify',
             path: '../src/repositories/index.ts',
             pattern: /(export {)/,
             template:
-              "import {{pascalCase model}}-{{pascalCase model2}}Repository from './{{pascalCase model}}-{{pascalCase model2}}Repository';\n\n$1",
+              "import {{pascalCase model1}}{{pascalCase model2}}Repository from './{{pascalCase model1}}{{pascalCase model2}}Repository';\n\n$1",
           },
           {
             type: 'append',
             path: '../src/controllers/index.ts',
             template:
-              'export { {{pascalCase model}}-{{pascalCase model2}}Controller };\n',
+              'export { {{pascalCase model1}}{{pascalCase model2}}Controller };\n',
             skipIfExists: true,
           },
           {
             type: 'append',
             path: '../src/repositories/index.ts',
             template:
-              'export { {{pascalCase model}}-{{pascalCase model2}}Repository };\n',
+              'export { {{pascalCase model1}}{{pascalCase model2}}Repository };\n',
             skipIfExists: true,
           },
           {
             type: 'append',
             path: '../src/DTOs/index.ts',
             template:
-              'export { {{pascalCase model}}, {{pascalCase model2}}, Update{{pascalCase model}} };\n',
+              'export { {{pascalCase model1}}, {{pascalCase model2}}, Update{{pascalCase model1}}{{pascalCase model2}} };\n',
             skipIfExists: true,
           },
           {
@@ -178,14 +184,14 @@ module.exports = (plop) => {
             path: '../src/routes/index.ts',
             pattern: /\n/,
             template:
-              "\n\nimport {{pascalCase model}}-{{pascalCase model2}}Routes from './{{pascalCase model}}-{{pascalCase model2}}Routes';",
+              "\n\nimport {{pascalCase model1}}{{pascalCase model2}}Routes from './{{pascalCase model1}}{{pascalCase model2}}Routes';",
           },
           {
             type: 'modify',
             path: '../src/routes/index.ts',
             pattern: /const router = Router\(\);/,
             template:
-              "const router = Router();\n\nrouter.use('/{{camelCase model}}-{{camelCase model2}}', {{pascalCase model}}-{{pascalCase model2}}Routes);",
+              "const router = Router();\n\nrouter.use('/{{camelCase model1}}{{camelCase model2}}', {{pascalCase model1}}{{pascalCase model2}}Routes);",
           },
         );
       }
