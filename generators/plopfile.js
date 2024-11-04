@@ -115,86 +115,86 @@ module.exports = (plop) => {
       );
 
       // Ações adicionais para identificador duplo
-      if (data.identifierType === 'Duplo') {
-        actions.push(
-          {
-            type: 'add',
-            path: `../src/controllers/{{pascalCase model1}}{{pascalCase model2}}Controller.ts`,
-            templateFile: `${templatePath}/Controller.ts.hbs`,
-          },
-          {
-            type: 'add',
-            path: `../src/repositories/{{pascalCase model1}}{{pascalCase model2}}Repository.ts`,
-            templateFile: `${templatePath}/Repository.ts.hbs`,
-          },
-          {
-            type: 'add',
-            path: `../src/routes/{{pascalCase model1}}{{pascalCase model2}}Routes.ts`,
-            templateFile: `${templatePath}/Routes.ts.hbs`,
-          },
-          {
-            type: 'add',
-            path: `../src/DTOs/{{pascalCase model1}}{{pascalCase model2}}.ts`,
-            templateFile: `${templatePath}/DTO.ts.hbs`,
-          },
-          {
-            type: 'modify',
-            path: '../src/DTOs/index.ts',
-            pattern: /^(import .*;\n)/,
-            template:
-              "import { {{pascalCase model1}}, {{pascalCase model2}}, Update{{pascalCase model1}}{{pascalCase model2}} } from './{{pascalCase model1}}{{pascalCase model2}}';\n$1",
-          },
-          {
-            type: 'modify',
-            path: '../src/controllers/index.ts',
-            pattern: /(export {)/,
-            template:
-              "import {{pascalCase model1}}{{pascalCase model2}}Controller from './{{pascalCase model1}}{{pascalCase model2}}Controller';\n\n$1",
-          },
-          {
-            type: 'modify',
-            path: '../src/repositories/index.ts',
-            pattern: /(export {)/,
-            template:
-              "import {{pascalCase model1}}{{pascalCase model2}}Repository from './{{pascalCase model1}}{{pascalCase model2}}Repository';\n\n$1",
-          },
-          {
-            type: 'append',
-            path: '../src/controllers/index.ts',
-            template:
-              'export { {{pascalCase model1}}{{pascalCase model2}}Controller };\n',
-            skipIfExists: true,
-          },
-          {
-            type: 'append',
-            path: '../src/repositories/index.ts',
-            template:
-              'export { {{pascalCase model1}}{{pascalCase model2}}Repository };\n',
-            skipIfExists: true,
-          },
-          {
-            type: 'append',
-            path: '../src/DTOs/index.ts',
-            template:
-              'export { {{pascalCase model1}}, {{pascalCase model2}}, Update{{pascalCase model1}}{{pascalCase model2}} };\n',
-            skipIfExists: true,
-          },
-          {
-            type: 'modify',
-            path: '../src/routes/index.ts',
-            pattern: /\n/,
-            template:
-              "\n\nimport {{pascalCase model1}}{{pascalCase model2}}Routes from './{{pascalCase model1}}{{pascalCase model2}}Routes';",
-          },
-          {
-            type: 'modify',
-            path: '../src/routes/index.ts',
-            pattern: /const router = Router\(\);/,
-            template:
-              "const router = Router();\n\nrouter.use('/{{camelCase model1}}{{camelCase model2}}', {{pascalCase model1}}{{pascalCase model2}}Routes);",
-          },
-        );
-      }
+      // if (data.identifierType === 'Duplo') {
+      //   actions.push(
+      //     {
+      //       type: 'add',
+      //       path: `../src/controllers/{{pascalCase model1}}{{pascalCase model2}}Controller.ts`,
+      //       templateFile: `${templatePath}/Controller.ts.hbs`,
+      //     },
+      //     {
+      //       type: 'add',
+      //       path: `../src/repositories/{{pascalCase model1}}{{pascalCase model2}}Repository.ts`,
+      //       templateFile: `${templatePath}/Repository.ts.hbs`,
+      //     },
+      //     {
+      //       type: 'add',
+      //       path: `../src/routes/{{pascalCase model1}}{{pascalCase model2}}Routes.ts`,
+      //       templateFile: `${templatePath}/Routes.ts.hbs`,
+      //     },
+      //     {
+      //       type: 'add',
+      //       path: `../src/DTOs/{{pascalCase model1}}{{pascalCase model2}}.ts`,
+      //       templateFile: `${templatePath}/DTO.ts.hbs`,
+      //     },
+      //     {
+      //       type: 'modify',
+      //       path: '../src/DTOs/index.ts',
+      //       pattern: /^(import .*;\n)/,
+      //       template:
+      //         "import { {{pascalCase model1}}, {{pascalCase model2}}, Update{{pascalCase model1}}{{pascalCase model2}} } from './{{pascalCase model1}}{{pascalCase model2}}';\n$1",
+      //     },
+      //     {
+      //       type: 'modify',
+      //       path: '../src/controllers/index.ts',
+      //       pattern: /(export {)/,
+      //       template:
+      //         "import {{pascalCase model1}}{{pascalCase model2}}Controller from './{{pascalCase model1}}{{pascalCase model2}}Controller';\n\n$1",
+      //     },
+      //     {
+      //       type: 'modify',
+      //       path: '../src/repositories/index.ts',
+      //       pattern: /(export {)/,
+      //       template:
+      //         "import {{pascalCase model1}}{{pascalCase model2}}Repository from './{{pascalCase model1}}{{pascalCase model2}}Repository';\n\n$1",
+      //     },
+      //     {
+      //       type: 'append',
+      //       path: '../src/controllers/index.ts',
+      //       template:
+      //         'export { {{pascalCase model1}}{{pascalCase model2}}Controller };\n',
+      //       skipIfExists: true,
+      //     },
+      //     {
+      //       type: 'append',
+      //       path: '../src/repositories/index.ts',
+      //       template:
+      //         'export { {{pascalCase model1}}{{pascalCase model2}}Repository };\n',
+      //       skipIfExists: true,
+      //     },
+      //     {
+      //       type: 'append',
+      //       path: '../src/DTOs/index.ts',
+      //       template:
+      //         'export { {{pascalCase model1}}, {{pascalCase model2}}, Update{{pascalCase model1}}{{pascalCase model2}} };\n',
+      //       skipIfExists: true,
+      //     },
+      //     {
+      //       type: 'modify',
+      //       path: '../src/routes/index.ts',
+      //       pattern: /\n/,
+      //       template:
+      //         "\n\nimport {{pascalCase model1}}{{pascalCase model2}}Routes from './{{pascalCase model1}}{{pascalCase model2}}Routes';",
+      //     },
+      //     {
+      //       type: 'modify',
+      //       path: '../src/routes/index.ts',
+      //       pattern: /const router = Router\(\);/,
+      //       template:
+      //         "const router = Router();\n\nrouter.use('/{{camelCase model1}}{{camelCase model2}}', {{pascalCase model1}}{{pascalCase model2}}Routes);",
+      //     },
+      //   );
+      // }
 
       return actions;
     },
