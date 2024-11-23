@@ -1,13 +1,17 @@
-import dotenv from 'dotenv';
-import * as fs from 'fs';
-import { GoogleGenerativeAI } from '@google/generative-ai';
-import { generatePrompt } from './prompt-creation';
+const fs = require('fs');
+const { GoogleGenerativeAI } = require('@google/generative-ai'); // Ajuste na importação
+const dotenv = require('dotenv');
+const generatePrompt = require('./prompt-creation');
 
 dotenv.config();
 
-const genAI = new GoogleGenerativeAI(process.env.API_KEY);
+// Criando a instância da API corretamente
+const genAI = new GoogleGenerativeAI(
+  process.env.GEMINI_API_KEY, // Passando a chave API corretamente
+);
 
 async function main() {
+  // A obtenção do modelo parece correta
   const model = genAI.getGenerativeModel({ model: 'gemini-pro' });
 
   // Gera o prompt
@@ -29,14 +33,18 @@ async function main() {
   return text;
 }
 
-const final = await main();
-const filePath = './prisma/seed.ts'; // Caminho do arquivo
+async function writeToFile() {
+  const final = await main();
+  const filePath = './prisma/seed.ts'; // Caminho do arquivo
 
-// Escreve o conteúdo no arquivo
-fs.writeFile(filePath, final, (err) => {
-  if (err) {
-    console.error('Erro ao escrever no arquivo:', err);
-  } else {
-    console.log(`Arquivo '${filePath}' escrito com sucesso!`);
-  }
-});
+  // Escreve o conteúdo no arquivo
+  fs.writeFile(filePath, final, (err) => {
+    if (err) {
+      console.error('Erro ao escrever no arquivo:', err);
+    } else {
+      console.log(`Arquivo '${filePath}' escrito com sucesso!`);
+    }
+  });
+}
+
+writeToFile();
