@@ -28,7 +28,10 @@ async function main() {
   let text = response.text();
 
   // Remove os delimitadores de código ```typescript```
-  text = text.replace(/```typescript/g, '').replace(/```/g, '');
+  text = text
+    .replace(/```typescript/g, '')
+    .replace(/```/g, '')
+    .replace(/^\n/, ''); // Remove o \n inicial
 
   return text;
 }
