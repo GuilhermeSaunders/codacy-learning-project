@@ -1,23 +1,22 @@
-const fs = require('fs');
-const { GoogleGenerativeAI } = require('@google/generative-ai'); // Ajuste na importação
 const dotenv = require('dotenv');
+const fs = require('fs');
+const {
+  GoogleGenerativeAI,
+} = require('../../node_modules/@google/generative-ai');
 const generatePrompt = require('./prompt-creation');
 
 dotenv.config();
 
-// Criando a instância da API corretamente
 const genAI = new GoogleGenerativeAI(
   process.env.GEMINI_API_KEY, // Passando a chave API corretamente
 );
 
 async function main() {
-  // A obtenção do modelo parece correta
   const model = genAI.getGenerativeModel({ model: 'gemini-pro' });
 
   // Gera o prompt
   const prompt = await generatePrompt();
 
-  // Gera o texto com mais linhas
   const result = await model.generateContent(prompt, {
     maxOutputTokens: 8192,
     temperature: 0.3, // Criatividade balanceada
@@ -38,7 +37,7 @@ async function main() {
 
 async function writeToFile() {
   const final = await main();
-  const filePath = './prisma/seed.ts'; // Caminho do arquivo
+  const filePath = './prisma/seed.ts';
 
   // Escreve o conteúdo no arquivo
   fs.writeFile(filePath, final, (err) => {
