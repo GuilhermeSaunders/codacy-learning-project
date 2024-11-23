@@ -38,7 +38,7 @@
     "studio": "cross-env DATABASE_HOST='localhost' prisma studio",
     "generate": "prisma generate",
     "seed": "cross-env DATABASE_HOST='localhost' ts-node prisma/seed.ts",
-    "seed-create": "cross-env DATABASE_HOST='localhost' node generators/gemini/seed-creation.js",
+    "seed-create": "node generators/gemini/seed-creation.js",
     "lint": "eslint ./src --ext .ts",
     "lint:fix": "eslint ./src --ext .ts --fix",
     "push": "cross-env DATABASE_HOST='localhost' prisma db push",
