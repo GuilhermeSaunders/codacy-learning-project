@@ -26,7 +26,7 @@ ENV NODE_ENV=production
 
 COPY --from=builder /home/node/app /home/node/app
 
-RUN chown -R node:node /home/node/app/node_modules/.prisma
+RUN chown -R node:node /home/node/app/node_modules/.prisma && chown -R node:node /home/node/app/prisma/
 
 USER node
 
