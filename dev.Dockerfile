@@ -1,4 +1,4 @@
-FROM node:20.9.0-slim
+FROM node:20.9.0-slim AS base
 
 RUN apt-get update -y && apt-get install -y openssl
 
@@ -6,7 +6,9 @@ RUN mkdir -p /home/node/app/node_modules && chown -R node:node /home/node/app
 
 WORKDIR /home/node/app
 
-COPY package.json yarn.loc[k] ./
+FROM base AS builder
+
+COPY package.json yarn.lock ./
 
 RUN yarn install 
 
@@ -14,9 +16,9 @@ COPY . .
 
 RUN yarn generate
 
-COPY --chown=node:node . .
+FROM base AS runner
 
-RUN chown -R node:node /home/node/app/node_modules/.prisma
+COPY --from=builder /home/node/app /home/node/app
 
 USER node
 
