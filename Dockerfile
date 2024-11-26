@@ -18,7 +18,7 @@ RUN yarn install
 
 COPY . .
 
-RUN yarn generate
+RUN yarn generate --generator client
 
 FROM base AS runner
 
