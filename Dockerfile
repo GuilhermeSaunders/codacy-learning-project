@@ -3,9 +3,7 @@
 FROM node:20.9.0-slim AS base
 
 RUN apt-get update -y && apt-get install -y --no-install-recommends openssl \
-
     && apt-get clean \
-
     && rm -rf /var/lib/apt/lists/*
 
 RUN mkdir -p /home/node/app/node_modules && chown -R node:node /home/node/app
