@@ -20,20 +20,20 @@ jobs:
 
       # Installs all the packages
       - name: Install dependencies and packages
-        run: yarn install
+        run: pnpm install
 
         # Generate prisma client
       - name: Generate prisma client
-        run: yarn generate
+        run: pnpm generate
 
       # Runs the lint script
       - name: Run the lint Script
-        run: yarn lint
+        run: pnpm lint
 
       # Runs the typecheck script
       - name: Run the typecheck Script
-        run: yarn generate && yarn typecheck
+        run: pnpm generate && yarn typecheck
 
       # Runs the build script
       - name: Run the build Script
-        run: yarn build
+        run: pnpm build
