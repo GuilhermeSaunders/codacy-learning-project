@@ -33,22 +33,25 @@ if (process.env.NODE_ENV !== 'production') {
           const { timestamp, message, meta } = info;
           let requestBody;
           let responseBody;
-          try {
-            requestBody = JSON.stringify(meta.req.body, null, 2);
-          } catch (e) {
-            requestBody = meta.req?.body;
-          }
-          try {
-            responseBody = JSON.stringify(meta.res.body, null, 2);
-          } catch (e) {
-            responseBody = meta.res?.body;
+
+          if (meta) {
+            try {
+              requestBody = JSON.stringify(meta.req.body, null, 2);
+            } catch (e) {
+              requestBody = meta.req?.body;
+            }
+            try {
+              responseBody = JSON.stringify(meta.res.body, null, 2);
+            } catch (e) {
+              responseBody = meta.res?.body;
+            }
           }
 
-          const statusCode = meta.res?.statusCode;
+          const statusCode = meta ? meta.res?.statusCode : null;
 
-          return `[${timestamp}] ${message} - ${statusCode}\n\n${
+          return `[${timestamp}] ${message} - ${statusCode && '-'}\n\n${
             requestBody ? `Request Body: ${requestBody}\n` : ''
-          }Response Body: ${responseBody}`;
+          }${responseBody ? `Response Body: ${responseBody}\n` : ''}`;
         }),
       ),
       handleExceptions: true,
