@@ -1,6 +1,7 @@
 # dockerfile used for production. no further configuration is needed
 
 FROM node:20.9.0-slim AS base
+
 ENV PNPM_HOME="/pnpm"
 ENV PATH="$PNPM_HOME:$PATH"
 RUN corepack enable
@@ -21,7 +22,7 @@ COPY package.json pnpm-lock.yaml ./
 
 ENV NODE_ENV=production
 
-RUN pnpm install --frozen-lockfile --prod
+RUN pnpm install
 
 COPY . .
 
@@ -37,7 +38,7 @@ COPY --from=builder /home/node/app/node_modules /home/node/app/node_modules
 
 COPY --from=builder /home/node/app/prisma /home/node/app/prisma
 
-RUN chown -R node:node /home/node/app/node_modules/.prisma && chown -R node:node /home/node/app/prisma/
+RUN chown -R node:node /home/node/app/prisma/
 
 USER node
 
