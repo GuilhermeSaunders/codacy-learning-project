@@ -3,7 +3,7 @@ services:
   server:
     build:
       context: .
-      dockerfile: Dockerfile
+      dockerfile: dev.Dockerfile
     image: nodejs-server
     container_name: ${PROJECT_NAME}-server
     restart: unless-stopped
