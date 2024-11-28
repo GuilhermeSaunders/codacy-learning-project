@@ -1,6 +1,9 @@
 # dockerfile used for production. no further configuration is needed
 
 FROM node:20.9.0-slim AS base
+ENV PNPM_HOME="/pnpm"
+ENV PATH="$PNPM_HOME:$PATH"
+RUN corepack enable
 
 RUN apt-get update -y && apt-get install -y --no-install-recommends openssl \
     && apt-get clean \
@@ -14,15 +17,15 @@ WORKDIR /home/node/app
 
 FROM base AS builder
 
-COPY package.json yarn.lock ./
+COPY package.json pnpm-lock.yaml ./
 
 ENV NODE_ENV=production
 
-RUN yarn install
+RUN pnpm install --frozen-lockfile --prod
 
 COPY . .
 
-RUN yarn build && yarn generate --generator client
+RUN pnpm build && pnpm generate --generator client
 
 ################################################################################
 
