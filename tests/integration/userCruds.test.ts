@@ -77,7 +77,7 @@ describe('User CRUDS', () => {
     expect(response.status).toBe(400);
     expect(response.body).toHaveProperty(
       'message',
-      'Endereço de email inválido',
+      'email Endereço de email inválido',
     );
   });
 
