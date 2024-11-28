@@ -18,6 +18,10 @@ jobs:
         with:
           node-version: 18.16
 
+      # Installs pnpm
+      - name: Install pnpm
+        run: npm install -g pnpm
+
       # Installs all the packages
       - name: Install dependencies and packages
         run: pnpm install
