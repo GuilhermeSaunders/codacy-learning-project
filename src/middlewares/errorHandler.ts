@@ -16,7 +16,12 @@ const errorHandler = (
 
   if (error instanceof ZodError) {
     res.locals.status = 400;
-    res.locals.message = error.issues.map((issue) => issue.message).join(', ');
+    const errors: string[] = [];
+    // eslint-disable-next-line no-restricted-syntax
+    for (const issue of error.issues) {
+      errors.push(`${issue.path.join('.')} ${issue.message}`);
+    }
+    res.locals.message = errors.join(', ');
   }
 
   if (error instanceof PrismaClientKnownRequestError) {
