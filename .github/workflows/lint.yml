@@ -36,7 +36,7 @@ jobs:
 
       # Runs the typecheck script
       - name: Run the typecheck Script
-        run: pnpm generate && yarn typecheck
+        run: pnpm generate && pnpm typecheck
 
       # Runs the build script
       - name: Run the build Script
