@@ -2,9 +2,9 @@ name: Test
 
 on:
   push:
-    branches: [ develop, main ]
+    branches: [develop, main]
   pull_request:
-    branches: [ develop, main ]
+    branches: [develop, main]
 
 jobs:
   test:
@@ -26,6 +26,6 @@ jobs:
         with:
           node-version: 18.16
       - name: Install dependencies and packages
-        run: yarn install
+        run: pnpm install
       - name: Run the test Script
-        run: yarn test:ci
+        run: pnpm test:ci
