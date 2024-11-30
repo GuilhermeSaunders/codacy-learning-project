@@ -18,11 +18,11 @@ WORKDIR /home/node/app
 
 FROM base AS builder
 
-COPY package.json pnpm-lock.yaml ./
-
 ENV NODE_ENV=production
 
-RUN pnpm install
+COPY package.json pnpm-lock.yaml ./
+
+RUN --mount=type=cache,id=pnpm,target=/pnpm/store pnpm install --frozen-lockfile
 
 COPY . .
 
@@ -32,9 +32,9 @@ RUN pnpm build && pnpm generate --generator client
 
 FROM base AS runner
 
-COPY --from=builder /home/node/app/dist /home/node/app/dist
-
 COPY --from=builder /home/node/app/node_modules /home/node/app/node_modules
+
+COPY --from=builder /home/node/app/dist /home/node/app/dist
 
 COPY --from=builder /home/node/app/prisma /home/node/app/prisma
 

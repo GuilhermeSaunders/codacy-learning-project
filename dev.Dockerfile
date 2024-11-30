@@ -20,7 +20,7 @@ FROM base AS builder
 
 COPY package.json pnpm-lock.yaml ./
 
-RUN pnpm install
+RUN --mount=type=cache,id=pnpm,target=/pnpm/store pnpm install --frozen-lockfile
 
 COPY . .
 
@@ -37,8 +37,6 @@ RUN ls node_modules/.pnpm/ \
 | awk '{print $1}' \
 | xargs -I {} chown -R node:node /home/node/app/node_modules/.pnpm/{}/node_modules/.prisma \
 && chown -R node:node /home/node/app/prisma/
-
-##RUN chown -R node:node /home/node/app/node_modules/@prisma && chown -R node:node /home/node/app/prisma/
 
 USER node
 
