@@ -2,7 +2,7 @@
 
 ## Running the project
 
-1. Assegure-se de ter o **docker/docker-compose**, bem como um gerenciador de pacotes como **pnpm**, **yarn** ou **npm**, instalados em sua máquina.
+1. Assegure-se de ter o **docker/docker-compose**, bem como o gerenciador de pacotes **pnpm** instalados em sua máquina.
 
 2. Clone o repositório:
 
@@ -14,10 +14,6 @@ git clone https://github.com/CITi-UFPE/node-boilerplate.git
 
 ```bash
 pnpm install
-# or
-yarn install
-# or
-npm install
 ```
 
 4. Crie um arquivo **.env** na raiz do projeto, com as seguintes variáveis de ambiente:
@@ -69,7 +65,7 @@ _**NOTE**: existem diversas variações do comando docker-compose. Algumas usam 
 6. Para rodar as migrations, execute com o servidor rodando em outro terminal:
 
 ```bash
-yarn migration
+pnpm migration
 ```
 
 7. Voilá! O servidor está rodando.
@@ -129,9 +125,9 @@ yarn migration
 
   _PS: esse comando não é uma bala de prata, mas bem que poderia ser. Se você empacar com qualquer coisa no Docker, é altamente provável que ele resolva seu problema._
 
-### Erro ao rodar `yarn migration`:
+### Erro ao rodar `pnpm migration`:
 
-Em caso de erros ao rodar yarn migrations, siga o seguinte modelo mental:
+Em caso de erros ao rodar pnpm migrations, siga o seguinte modelo mental:
 
 1. **Verifique se o container está rodando.** Se não estiver, rode `docker-compose up` e tente novamente em outro terminal.
 2. **Delete a pasta de migrations e tente novamente.** Isso é uma medida aparentemente extrema, mas não há nada de errado nela a não ser que o projeto já tenha sido deployado em produção. Nesse caso, siga as instruções um pouco mais avançadas [neste link](https://www.prisma.io/docs/guides/migrate/production-troubleshooting), preferencialmente acompanhado de alguém com um pouco mais de conhecimento em SQL.
