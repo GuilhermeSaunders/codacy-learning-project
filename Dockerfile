@@ -2,6 +2,10 @@
 
 FROM node:20.9.0-slim AS base
 
+ENV PNPM_HOME="/pnpm"
+ENV PATH="$PNPM_HOME:$PATH"
+RUN corepack enable
+
 RUN apt-get update -y && apt-get install -y --no-install-recommends openssl \
     && apt-get clean \
     && rm -rf /var/lib/apt/lists/*
@@ -14,27 +18,27 @@ WORKDIR /home/node/app
 
 FROM base AS builder
 
-COPY package.json yarn.lock ./
-
 ENV NODE_ENV=production
 
-RUN yarn install
+COPY package.json pnpm-lock.yaml ./
+
+RUN --mount=type=cache,id=pnpm,target=/pnpm/store pnpm install --frozen-lockfile
 
 COPY . .
 
-RUN yarn build && yarn generate --generator client
+RUN pnpm build && pnpm generate --generator client
 
 ################################################################################
 
 FROM base AS runner
 
-COPY --from=builder /home/node/app/dist /home/node/app/dist
-
 COPY --from=builder /home/node/app/node_modules /home/node/app/node_modules
+
+COPY --from=builder /home/node/app/dist /home/node/app/dist
 
 COPY --from=builder /home/node/app/prisma /home/node/app/prisma
 
-RUN chown -R node:node /home/node/app/node_modules/.prisma && chown -R node:node /home/node/app/prisma/
+RUN chown -R node:node /home/node/app/prisma/
 
 USER node
 

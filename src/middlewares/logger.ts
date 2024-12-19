@@ -1,5 +1,15 @@
 import { createLogger, format, transports, Logger, addColors } from 'winston';
 
+interface Meta {
+  req: {
+    body: unknown;
+  };
+  res: {
+    body: unknown;
+    statusCode: unknown;
+  };
+}
+
 const logsDir = './logs/';
 
 const formatters = [format.timestamp(), format.json()];
@@ -31,24 +41,30 @@ if (process.env.NODE_ENV !== 'production') {
         format.colorize({ all: true }),
         format.printf((info) => {
           const { timestamp, message, meta } = info;
+
+          const metaCasted = meta as Meta;
+
           let requestBody;
           let responseBody;
-          try {
-            requestBody = JSON.stringify(meta.req.body, null, 2);
-          } catch (e) {
-            requestBody = meta.req?.body;
-          }
-          try {
-            responseBody = JSON.stringify(meta.res.body, null, 2);
-          } catch (e) {
-            responseBody = meta.res?.body;
+
+          if (metaCasted) {
+            try {
+              requestBody = JSON.stringify(metaCasted.req.body, null, 2);
+            } catch (e) {
+              requestBody = metaCasted.req.body;
+            }
+            try {
+              responseBody = JSON.stringify(metaCasted.res.body, null, 2);
+            } catch (e) {
+              responseBody = metaCasted.res.body;
+            }
           }
 
-          const statusCode = meta.res?.statusCode;
+          const statusCode = metaCasted ? metaCasted.res.statusCode : null;
 
-          return `[${timestamp}] ${message} - ${statusCode}\n\n${
+          return `[${timestamp}] ${message} - ${statusCode && '-'}\n\n${
             requestBody ? `Request Body: ${requestBody}\n` : ''
-          }Response Body: ${responseBody}`;
+          }${responseBody ? `Response Body: ${responseBody}\n` : ''}`;
         }),
       ),
       handleExceptions: true,
