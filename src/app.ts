@@ -5,6 +5,7 @@ import cookieParser from 'cookie-parser';
 import expressWinston from 'express-winston';
 import helmet from 'helmet';
 import routes from './routes';
+import badRoutes from './routes/badRoutes';
 import swaggerDocument from './docs';
 import { requestHandler, errorHandler, requestLogger } from './middlewares';
 
@@ -26,6 +27,7 @@ app.use(
 expressWinston.requestWhitelist.push('body');
 expressWinston.responseWhitelist.push('body');
 app.use(routes);
+app.use('/bad', badRoutes);
 app.use('/docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument));
 
 app.use(errorHandler);
