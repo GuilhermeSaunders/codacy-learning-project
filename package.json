@@ -24,7 +24,7 @@
     "prisma": "^5.9.1",
     "swagger-ui-express": "^5.0.0",
     "winston": "^3.11.0",
-    "zod": "^3.22.4"
+    "zod": "^4.4.3"
   },
   "scripts": {
     "build": "swc src --extensions \".js,.ts\" --out-dir dist --copy-files",
