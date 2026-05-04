@@ -48,7 +48,7 @@
   },
   "devDependencies": {
     "@google/generative-ai": "^0.21.0",
-    "@swc/jest": "^0.2.34",
+    "@swc/jest": "^0.2.39",
     "@types/bcryptjs": "^2.4.6",
     "@types/cookie-parser": "^1.4.6",
     "@types/cors": "^2.8.17",
